@@ -1,0 +1,16 @@
+/*
+
+!.gitignore
+!wp-content/
+!wp-content/themes/
+!wp-content/plugins/
+
+wp-content/themes/*
+!wp-content/themes/eric-theme/
+
+wp-content/plugins/*
+!wp-content/plugins/eric-portfolio-projects/
+
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
