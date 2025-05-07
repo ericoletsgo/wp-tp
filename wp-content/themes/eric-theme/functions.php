@@ -143,6 +143,11 @@ function portfolio_scripts() {
 
 	wp_enqueue_script( 'portfolio-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
+	wp_enqueue_style( 'swiper-css', get_template_directory_uri() . '/assets/swiper/swiper-bundle.min.css' );
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('swiper-js', get_template_directory_uri() . '/assets/swiper/swiper-bundle.min.js', array('jquery'), false, true);
+	wp_enqueue_script('portfolio-custom', get_template_directory_uri() . '/js/custom-scripts.js', array('jquery', 'swiper-js'), _S_VERSION, true);
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -175,4 +180,53 @@ require get_template_directory() . '/inc/customizer.php';
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+function ericportfoliotheme_customize_register($wp_customize) {
+	$wp_customize->add_section('ep_hero_section', array(
+		'title'    => __('Homepage: Hero Section', 'ericportfoliotheme'),
+		'priority' => 110,
+	));
+
+	$wp_customize->add_setting('ep_hero_heading', array(
+		'default' => '[Your Name]',
+		'sanitize_callback' => 'sanitize_text_field'
+	));
+	$wp_customize->add_control('ep_hero_heading', array(
+		'label' => __('Hero Heading', 'ericportfoliotheme'),
+		'section' => 'ep_hero_section',
+		'type' => 'text',
+	));
+
+	$wp_customize->add_setting('ep_hero_subheading', array(
+		'default' => '[Your 2-line Subheading/Description]',
+		'sanitize_callback' => 'wp_kses_post'
+	));
+	$wp_customize->add_control('ep_hero_subheading', array(
+		'label' => __('Hero Subheading', 'ericportfoliotheme'),
+		'section' => 'ep_hero_section',
+		'type' => 'textarea',
+	));
+
+	$wp_customize->add_setting('ep_hero_cv_button_text', array(
+		'default' => 'View My CV',
+		'sanitize_callback' => 'sanitize_text_field'
+	));
+	$wp_customize->add_control('ep_hero_cv_button_text', array(
+		'label' => __('CV Button Text', 'ericportfoliotheme'),
+		'section' => 'ep_hero_section',
+		'type' => 'text',
+	));
+
+	// CV Button URL
+	$wp_customize->add_setting('ep_hero_cv_button_url', array(
+		'default' => '#',
+		'sanitize_callback' => 'esc_url_raw'
+	));
+	$wp_customize->add_control('ep_hero_cv_button_url', array(
+		'label' => __('CV Button URL', 'ericportfoliotheme'),
+		'section' => 'ep_hero_section',
+		'type' => 'url',
+	));
+}
+add_action('customize_register', 'ericportfoliotheme_customize_register');
 
