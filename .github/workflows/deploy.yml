@@ -12,21 +12,21 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Deploy Theme
-        uses: eisberg-labs/ftp-deploy@v1.0.0
+        uses: burnett01/rsync-deployments@5.2.1
         with:
-          host: ftpupload.net
-          port: 21
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./wp-content/themes/eric-theme/
-          remote-dir: /htdocs/wp-content/themes/eric-theme/
+          switches: -avzr --delete
+          path: ./wp-content/themes/eric-theme/
+          remote_path: /htdocs/wp-content/themes/eric-theme/
+          remote_host: ftpupload.net
+          remote_user: ${{ secrets.FTP_USERNAME }}
+          remote_key: ${{ secrets.FTP_PASSWORD }}
           
       - name: Deploy Plugin
-        uses: eisberg-labs/ftp-deploy@v1.0.0
+        uses: burnett01/rsync-deployments@5.2.1
         with:
-          host: ftpupload.net
-          port: 21
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./wp-content/plugins/eric-portfolio-projects/
-          remote-dir: /htdocs/wp-content/plugins/eric-portfolio-projects/
+          switches: -avzr --delete
+          path: ./wp-content/plugins/eric-portfolio-projects/
+          remote_path: /htdocs/wp-content/plugins/eric-portfolio-projects/
+          remote_host: ftpupload.net
+          remote_user: ${{ secrets.FTP_USERNAME }}
+          remote_key: ${{ secrets.FTP_PASSWORD }}
