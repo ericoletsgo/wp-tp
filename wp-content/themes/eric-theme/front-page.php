@@ -66,7 +66,19 @@ get_header();
                                 $github_url = get_post_meta( get_the_ID(), '_epp_github_url', true );
                                 $demo_url = get_post_meta( get_the_ID(), '_epp_demo_url', true );
                                 $short_desc = get_post_meta( get_the_ID(), '_epp_short_description', true);
-                                $project_main_image_url = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'medium_large') : get_template_directory_uri() . '/assets/images/placeholder.png';
+                                $project_main_image_url = '';
+                                if (has_post_thumbnail()) {
+                                    $project_main_image_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                                    error_log('Project image URL: ' . $project_main_image_url);
+                                } else {
+                                    $content = get_the_content();
+                                    preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+                                    if (!empty($matches[1][0])) {
+                                        $project_main_image_url = $matches[1][0];
+                                    } else {
+                                        $project_main_image_url = get_template_directory_uri() . '/assets/images/placeholder.png';
+                                    }
+                                }
                                 ?>
                                 <div class="swiper-slide">
                                     <article class="project-slide-item">

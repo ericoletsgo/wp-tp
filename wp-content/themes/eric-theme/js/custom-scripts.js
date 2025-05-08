@@ -42,7 +42,7 @@
         });
 
         if ($('.project-carousel').length) {
-            const projectSwiper = new Swiper('.project-carousel', {
+            const projectCarousel = new Swiper('.project-carousel', {
                 slidesPerView: 1,
                 spaceBetween: 30,
                 loop: true,
@@ -56,17 +56,11 @@
                     prevEl: '.swiper-button-prev',
                 },
                 breakpoints: {
-                    640: {
-                        slidesPerView: 1,
-                        spaceBetween: 20
-                    },
                     768: {
-                        slidesPerView: 2,
-                        spaceBetween: 30
+                        slidesPerView: 1,
                     },
                     1024: {
-                        slidesPerView: 3,
-                        spaceBetween: 40
+                        slidesPerView: 1,
                     }
                 }
             });
