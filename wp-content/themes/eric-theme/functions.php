@@ -284,7 +284,7 @@ function ericportfoliotheme_customize_register($wp_customize) {
 		'type' => 'text',
 	));
 
-	// Contact Section Content
+	// Contacts Section Content
 	$wp_customize->add_setting('ep_contact_content', array(
 		'default' => 'Feel free to reach out...',
 		'sanitize_callback' => 'wp_kses_post'

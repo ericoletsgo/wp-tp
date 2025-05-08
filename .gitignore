@@ -1,6 +1,9 @@
 /*
 
 !.gitignore
+!.github/
+!.github/workflows/
+!.github/workflows/deploy.yml
 !wp-content/
 !wp-content/themes/
 !wp-content/plugins/
