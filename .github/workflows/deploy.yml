@@ -12,19 +12,21 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Deploy Theme
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: eisberg-labs/ftp-deploy@v1.0.0
         with:
+          host: ftpupload.net
+          port: 21
           username: ${{ secrets.FTP_USERNAME }}
-          server: ftpupload.net
-          ssh_private_key: ${{ secrets.FTP_PASSWORD }}
-          local_path: './wp-content/themes/eric-theme/*'
-          remote_path: '/htdocs/wp-content/themes/eric-theme/'
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./wp-content/themes/eric-theme/
+          remote-dir: /htdocs/wp-content/themes/eric-theme/
           
       - name: Deploy Plugin
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: eisberg-labs/ftp-deploy@v1.0.0
         with:
+          host: ftpupload.net
+          port: 21
           username: ${{ secrets.FTP_USERNAME }}
-          server: ftpupload.net
-          ssh_private_key: ${{ secrets.FTP_PASSWORD }}
-          local_path: './wp-content/plugins/eric-portfolio-projects/*'
-          remote_path: '/htdocs/wp-content/plugins/eric-portfolio-projects/'
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./wp-content/plugins/eric-portfolio-projects/
+          remote-dir: /htdocs/wp-content/plugins/eric-portfolio-projects/
