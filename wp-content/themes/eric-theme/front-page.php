@@ -42,7 +42,9 @@ get_header();
                     echo wp_get_attachment_image( $about_image_id, 'medium', false, array('class'=>'about-image') );
                 endif; 
                 ?>
-                <div><?php echo wpautop( wp_kses_post( get_theme_mod('ep_about_content', 'A little bit about myself...') ) ); ?></div>
+                <div class="about-content">
+                    <?php echo wp_kses_post(get_theme_mod('ep_about_content', 'A little bit about myself...')); ?>
+                </div>
             </div>
             <button class="next-section-button" data-target="#projects-section">↓</button>
         </section>
@@ -68,9 +70,13 @@ get_header();
                                 ?>
                                 <div class="swiper-slide">
                                     <article class="project-slide-item">
-                                        <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
-                                            <img src="<?php echo esc_url($project_main_image_url); ?>" alt="<?php the_title_attribute(); ?>">
-                                        </a>
+                                        <div class="project-image-container">
+                                            <a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+                                                <img src="<?php echo esc_url($project_main_image_url); ?>" 
+                                                     alt="<?php the_title_attribute(); ?>" 
+                                                     class="project-carousel-image">
+                                            </a>
+                                        </div>
                                         <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                                         <?php if($short_desc): ?>
                                             <p class="project-short-desc"><?php echo esc_html($short_desc); ?></p>

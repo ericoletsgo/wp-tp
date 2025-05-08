@@ -99,6 +99,8 @@ function portfolio_setup() {
 			'flex-height' => true,
 		)
 	);
+
+	add_image_size('project-carousel-thumb', 600, 400, true);
 }
 add_action( 'after_setup_theme', 'portfolio_setup' );
 
@@ -226,6 +228,71 @@ function ericportfoliotheme_customize_register($wp_customize) {
 		'label' => __('CV Button URL', 'ericportfoliotheme'),
 		'section' => 'ep_hero_section',
 		'type' => 'url',
+	));
+
+	// === About Section ===
+	$wp_customize->add_section('ep_about_section', array(
+		'title'    => __('Homepage: About Section', 'ericportfoliotheme'),
+		'priority' => 120,
+	));
+
+	// About Section Title
+	$wp_customize->add_setting('ep_about_title', array(
+		'default' => 'About Me',
+		'sanitize_callback' => 'sanitize_text_field'
+	));
+	$wp_customize->add_control('ep_about_title', array(
+		'label' => __('About Section Title', 'ericportfoliotheme'),
+		'section' => 'ep_about_section',
+		'type' => 'text',
+	));
+
+	// About Section Content - Allow HTML
+	$wp_customize->add_setting('ep_about_content', array(
+		'default' => 'A little bit about myself...',
+		'sanitize_callback' => 'wp_kses_post'
+	));
+	$wp_customize->add_control('ep_about_content', array(
+		'label' => __('About Section Content', 'ericportfoliotheme'),
+		'description' => __('You can include links using HTML. Example: <a href="https://example.com">Link Text</a>', 'ericportfoliotheme'),
+		'section' => 'ep_about_section',
+		'type' => 'textarea',
+	));
+
+	// About Section Image
+	$wp_customize->add_setting('ep_about_image');
+	$wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'ep_about_image_control', array(
+		'label'    => __('About Section Image', 'ericportfoliotheme'),
+		'section'  => 'ep_about_section',
+		'settings' => 'ep_about_image',
+	)));
+
+	// === Contact Section ===
+	$wp_customize->add_section('ep_contact_section', array(
+		'title'    => __('Homepage: Contact Section', 'ericportfoliotheme'),
+		'priority' => 130,
+	));
+
+	// Contact Section Title
+	$wp_customize->add_setting('ep_contact_title', array(
+		'default' => 'Get In Touch',
+		'sanitize_callback' => 'sanitize_text_field'
+	));
+	$wp_customize->add_control('ep_contact_title', array(
+		'label' => __('Contact Section Title', 'ericportfoliotheme'),
+		'section' => 'ep_contact_section',
+		'type' => 'text',
+	));
+
+	// Contact Section Content
+	$wp_customize->add_setting('ep_contact_content', array(
+		'default' => 'Feel free to reach out...',
+		'sanitize_callback' => 'wp_kses_post'
+	));
+	$wp_customize->add_control('ep_contact_content', array(
+		'label' => __('Contact Section Content', 'ericportfoliotheme'),
+		'section' => 'ep_contact_section',
+		'type' => 'textarea',
 	));
 }
 add_action('customize_register', 'ericportfoliotheme_customize_register');
