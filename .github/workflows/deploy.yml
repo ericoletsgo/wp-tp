@@ -1,0 +1,30 @@
+   name: Deploy to Tinkerhost
+
+   on:
+     push:
+       branches: [ main ]
+
+   jobs:
+     deploy:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout code
+           uses: actions/checkout@v4
+         
+         - name: Deploy Theme
+           uses: SamKirkland/FTP-Deploy-Action@4.3.4
+           with:
+             server: ftpupload.net
+             username: ${{ secrets.FTP_USERNAME }}
+             password: ${{ secrets.FTP_PASSWORD }}
+             local-dir: ./wp-content/themes/eric-theme/
+             server-dir: /htdocs/wp-content/themes/eric-theme/
+             
+         - name: Deploy Plugin
+           uses: SamKirkland/FTP-Deploy-Action@4.3.4
+           with:
+             server: ftpupload.net
+             username: ${{ secrets.FTP_USERNAME }}
+             password: ${{ secrets.FTP_PASSWORD }}
+             local-dir: ./wp-content/plugins/eric-portfolio-projects/
+             server-dir: /htdocs/wp-content/plugins/eric-portfolio-projects/
